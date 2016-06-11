@@ -1,0 +1,17 @@
+License
+
+Copyright - 2016 - Matthew Cooke
+
+Summary: Non-Commercial, Attributed and Redistributable
+
+You may use this program and associated files for any non-commercial purpose, modify and redistribute this
+program as long as this license is included with this program, you do not charge for this program and all
+contributors to the version used by you are credited and the source of the version used is available to the
+end user.
+
+Using this program and associated files does not grant you trademark rights.
+
+I, the creator and contributors of this program, will not be held responsible for any harm or loss of profits
+that arise from the use of this program. 
+
+There is no warranty provided with this program.
