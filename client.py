@@ -9,7 +9,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket
 print('Socket Created')
 
 host = 'localhost'
-port = 80085
+port = 60006
 
 try:
     remoteIP = socket.gethostbyname(host) #convert url to ip

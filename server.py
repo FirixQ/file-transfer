@@ -2,7 +2,7 @@ import socket, sys, time, select
 from threading import Thread
 
 HOST = ''
-PORT = 80085
+PORT = 60006
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket
 print('Socket created')
