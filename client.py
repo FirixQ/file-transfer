@@ -52,7 +52,7 @@ while 1:
             passes = passes + 1
 
         print('File sent')
-
+        f.close()
     elif(eRStatus == 'nc'):
         print(eR + ' is not available.')
 
