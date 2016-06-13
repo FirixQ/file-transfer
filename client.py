@@ -30,7 +30,7 @@ while 1:
     try:
         fileLoc = input('File path to send: ')
         f = open(fileLoc)
-    except (FileNotFoundError, IOError): #make sure file is accessible
+    except (FileNotFoundError): #make sure file is accessible
         print('Invalid file location')
         raise
 
