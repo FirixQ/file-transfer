@@ -27,7 +27,7 @@ s.send(bytes(username, 'utf-8')) #send user info to server
 print("Connected to server")
 
 def listen():
-    fileData = s.recv(1024) #receiver sender and file name
+    fileData = s.recv(1024).decode('utf-8') #receiver sender and file name
     splitData = fileData.split(':') #0 is sender, 1 is file name, 2 is amount of lines
     while invalid: #loop until answer is valid
         result = input("\rAccept file '" + splitData[1] + "' from " + splitData[0] + "? (y/n)").lower

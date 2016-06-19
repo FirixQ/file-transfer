@@ -55,11 +55,11 @@ def accept(senderName, senderAddr, receiver, file):
     return [status, c]
 
 def sender(sender, receiver, amountOfLines):
-    linesDone = 0
+    linesDone = 0 
     receiver.send(bytes(amountOfLines, 'utf-8'))
-    while linesDone <= amountOfLines:
+    while linesDone <= amountOfLines: #so that it knows when to finish
         line = sender.recv(1024)
-        receiver.send(line)
+        receiver.send(line) #relay lines to client
         linesDone = linesDone + 1
 
 def clientThread(conn): #what the client talks to
