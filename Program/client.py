@@ -3,6 +3,7 @@
 
 #connect to server
 import socket, sys
+from threading import Thread
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #create socket
 
@@ -27,9 +28,9 @@ print("Connected to server")
 
 def listen():
     fileData = s.recv(1024) #receiver sender and file name
-    splitData = split(splitData, ':')
+    splitData = fileData.split(':') #0 is sender, 1 is file name, 2 is amount of lines
     while invalid: #loop until answer is valid
-        result = input("Accept file '" + splitData[1] + "' from " + splitData[0] + "? (y/n)").lower
+        result = input("\rAccept file '" + splitData[1] + "' from " + splitData[0] + "? (y/n)").lower
         if (result == 'y'):
             status = 'a'
             invalid = False
@@ -40,6 +41,18 @@ def listen():
             print('Invalid response')
             invalid = True
 
+    f = open(splitData[1])
+
+    amountOfLines = s.recv(1024).decode('utf-8')
+    linesReceived = 0
+    while linesReceived <= amountOfLines:
+        line = s.recv(1024)
+        f.write(line)
+        linesReceived = linesReceived + 1
+        print(linesReceived)
+
+
+Thread(target=listen).start() #start lisntener on new thread
 
 
 while 1:
@@ -52,8 +65,10 @@ while 1:
 
     fileName = fileLoc.split('/')[-1] #get file name
 
+    totalPasses = sum(1 for line in f)
+
     eR = input('User to send to: ')
-    s.send(bytes(eR + ':'+ fileName, 'utf-8')) #send file name and recipitent to server
+    s.send(bytes(eR + ':'+ fileName + ':' + str(totalPasses), 'utf-8')) #send file name and recipitent to server
 
     eRStatus = s.recv(1024).decode('utf8') #get receiver status from server
 
@@ -64,7 +79,7 @@ while 1:
         file = f.read(1024)
         passes = 1
         while (file): #read and send line by line
-            print('Pass: ' + passes) #passes is basically a line counter. sorta like a progress counter
+            print((passes/totalPasses)*100 + '%', end="\r") #percent of progress counter
             s.send(file)
             file = f.read(1024)
             passes = passes + 1
