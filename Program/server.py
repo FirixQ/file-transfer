@@ -41,6 +41,8 @@ def accept(senderName, senderAddr, receiver, file):
 
         if (result == 'a'): #a for accept
             status = 'a'
+            active.append(receiver)
+            print(receiver + ' is now active')
         elif (result == 'd'): #d for decline
             status = 'd'
         elif (result == 'to'):
@@ -68,7 +70,7 @@ def clientThread(conn): #what the client talks to
     online.append(senderUTF8) #add to online list
     while True:
         eRaF = conn.recv(1024).decode('utf-8').split(':') #eRaF is end receiver, file and total lines
-        print(sender.decode('utf-8') + ' is now active')
+        print(senderUTF8 + ' is now active')
         active.append(senderUTF8)#mark them as active
         eR = eRaF[0]
         fileName = eRaF[1]
@@ -80,9 +82,10 @@ def clientThread(conn): #what the client talks to
             print('About to receive file from ' + addr[0] + '(' + senderUTF8 + ')')
             sender(conn, receiverAddr, totalLines)
 
-
+        active.reomve(eR)
         active.remove(senderUTF8)        
         print(senderUTF8 + ' is no longer active')
+        print(eR + ' is no longer active')
     conn.close()
 
 while 1:
